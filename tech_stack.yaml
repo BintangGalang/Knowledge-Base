@@ -1,0 +1,29 @@
+sistem:
+  nama: "KBMS Shavira Undiksha"
+  universitas: "Universitas Pendidikan Ganesha"
+  versi: "1.0.0"
+  domain_data: "Dokumen Legal & Hukum (JDIH) + Dokumen Akademik"
+vector_database:
+  pilihan: "Qdrant"
+  alasan: "Qdrant sangat direkomendasikan karena open source, ditulis menggunakan Rust sehingga sangat cepat, mendukung self-hosting dengan Docker, dan memiliki fitur hybrid search native (dense + sparse vectors) yang sangat penting untuk pencarian pasal dan dokumen hukum secara presisi."
+  self_hosted: true
+  port: 6333
+embedding_model:
+  pilihan: "intfloat/multilingual-e5-large"
+  dimensi: 1024
+  bahasa: "id+en (multilingual)"
+  mode: "local"
+  alasan: "Dokumen Undiksha mengandung campuran Bahasa Indonesia dan Bahasa Inggris (misal MoU internasional, peraturan). Model multilingual-e5-large memiliki kinerja sangat tinggi pada dataset multilingual dan cocok di-host secara lokal untuk efisiensi biaya serta privasi data."
+llm_backend:
+  pilihan: "OpenAI GPT-4o-mini"
+  mode: "API"
+  context_window: "128k"
+  alasan: "GPT-4o-mini menawarkan rasio performa dan biaya terbaik. Context window 128k cukup besar untuk memasukkan beberapa chunk panjang dari dokumen hukum atau peraturan akademik. Jika privasi absolut dibutuhkan, LLM ini dapat diganti dengan model on-premise seperti Llama-3-8B di masa depan."
+document_categories:
+  - "mou_perjanjian_kerjasama"
+  - "peraturan_kebijakan"
+  - "pedoman_sop"
+  - "akademik_kurikulum"
+  - "kemahasiswaan"
+  - "administrasi"
+  - "lainnya"

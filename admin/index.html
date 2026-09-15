@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KBMS Shavira Undiksha — Admin Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --bg-dark: #EFF4FB;           /* Biru-putih muda lembut — khas Undiksha */
+            --card-bg: #FFFFFF;
+            --card-border: #D1DDEF;       /* Biru-slate lembut */
+            --primary: #144C94;           /* Undiksha E-Ganesha Blue */
+            --primary-light: #1D5FAB;
+            --primary-glow: rgba(20, 76, 148, 0.18);
+            --accent: #3B82F6;
+            --text-main: #1E3A5F;         /* Biru tua lembut — bukan hitam pekat */
+            --text-muted: #5B7A99;        /* Slate biru-abu */
+            --success: #0EA570;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --sidebar-bg: #132F5C;        /* Sidebar gelap bergaya Undiksha */
+            --sidebar-text: #C8D9F0;
+            --sidebar-active: #FFFFFF;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ====== HEADER ====== */
+        header {
+            background: linear-gradient(90deg, #0F2D5A 0%, #144C94 60%, #1D5FAB 100%);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 0.85rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(14, 47, 90, 0.35);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .brand-sub {
+            font-size: 0.73rem;
+            color: rgba(255,255,255,0.55);
+        }
+
+        .system-status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            color: #A7F3D0;
+            font-weight: 500;
+        }
+
+        .dot-online {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #34D399;
+            box-shadow: 0 0 6px #34D399;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ====== LAYOUT ====== */
+        .app-layout {
+            display: flex;
+            flex: 1;
+        }
+
+        /* ====== SIDEBAR ====== */
+        aside {
+            width: 240px;
+            background: var(--sidebar-bg);
+            padding: 1.5rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex-shrink: 0;
+        }
+
+        .nav-section-label {
+            color: rgba(200, 217, 240, 0.4);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1rem 12px 0.4rem;
+        }
+
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            color: var(--sidebar-text);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.18s ease;
+            width: 100%;
+            text-align: left;
+        }
+
+        .nav-button:hover {
+            color: #FFFFFF;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .nav-button.active {
+            color: #FFFFFF;
+            background: rgba(59, 130, 246, 0.22);
+            border-left: 3px solid #60A5FA;
+            padding-left: 11px;
+            font-weight: 600;
+        }
+
+        .nav-button i {
+            width: 18px;
+            font-size: 1rem;
+            opacity: 0.85;
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        main {
+            flex: 1;
+            padding: 2rem 2.2rem;
+            overflow-y: auto;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ====== SECTION HEADERS ====== */
+        .section-header {
+            margin-bottom: 1.8rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: 4px;
+        }
+
+        /* ====== KPI CARDS ====== */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 1.4rem 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(20, 76, 148, 0.07);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(20, 76, 148, 0.12);
+            border-color: #A8BFDE;
+        }
+
+        .kpi-title {
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-top: 4px;
+            color: var(--primary);
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(20, 76, 148, 0.08);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        /* ====== GLASS PANEL / CARD ====== */
+        .glass-panel {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: var(--radius-lg);
+            padding: 1.6rem;
+            box-shadow: 0 2px 12px rgba(20, 76, 148, 0.06);
+            margin-bottom: 1.8rem;
+        }
+
+        /* ====== TABLES ====== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.88rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 11px 16px;
+            background: #EBF1FA;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border-bottom: 2px solid var(--card-border);
+        }
+
+        td {
+            padding: 13px 16px;
+            border-bottom: 1px solid #EDF2F8;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        tr:hover td {
+            background: #F0F6FF;
+        }
+
+        /* ====== BADGES ====== */
+        .badge {
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: inline-block;
+            letter-spacing: 0.3px;
+        }
+
+        .badge-blue  { background: #DBEAFE; color: #1D4ED8; border: 1px solid #BFDBFE; }
+        .badge-cyan  { background: #CFFAFE; color: #0E7490; border: 1px solid #A5F3FC; }
+        .badge-green { background: #D1FAE5; color: #065F46; border: 1px solid #A7F3D0; }
+        .badge-red   { background: #FEE2E2; color: #991B1B; border: 1px solid #FECACA; }
+
+        /* ====== FORM INPUTS ====== */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 11px 15px;
+            background: #F8FAFF;
+            border: 1.5px solid #C8D9EF;
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 0.92rem;
+            outline: none;
+            transition: border 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(20, 76, 148, 0.12);
+        }
+
+        /* ====== BUTTONS ====== */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #1D5FAB 100%);
+            color: white;
+            padding: 11px 22px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 12px rgba(20, 76, 148, 0.25);
+            font-size: 0.9rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1D5FAB 0%, #2563EB 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(20, 76, 148, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-danger {
+            background: #DC2626;
+            color: white;
+            padding: 6px 13px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-danger:hover {
+            background: #B91C1C;
+            transform: translateY(-1px);
+        }
+
+        /* ====== CHUNK CARD ====== */
+        .chunk-card {
+            background: #F8FAFF;
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 0.8rem;
+        }
+
+        .chunk-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* ====== LOGIN OVERLAY ====== */
+        #login-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0F2D5A 0%, #144C94 50%, #1E5AA8 100%);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+        #login-overlay.visible { display: flex; }
+
+        .login-box {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 3rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 70px rgba(10, 30, 70, 0.45);
+            text-align: center;
+        }
+        .login-logo {
+            width: 66px; height: 66px;
+            background: linear-gradient(135deg, var(--primary), #2563EB);
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: white; margin: 0 auto 1.2rem;
+            box-shadow: 0 6px 24px rgba(20,76,148,0.35);
+        }
+        .login-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.7rem; font-weight: 800;
+            color: var(--primary); margin-bottom: 0.3rem;
+        }
+        .login-sub { color: var(--text-muted); font-size: 0.88rem; margin-bottom: 2rem; }
+        .login-box .form-group { text-align: left; }
+        #login-error {
+            color: var(--danger); font-size: 0.85rem;
+            margin-top: 0.8rem; display: none;
+            background: #FEF2F2; border: 1px solid #FECACA;
+            border-radius: 8px; padding: 8px 12px;
+        }
+        .btn-logout {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white; padding: 6px 14px; border-radius: 20px;
+            font-size: 0.82rem; font-weight: 600; cursor: pointer;
+            transition: all 0.2s ease; display: none;
+            display: inline-flex; align-items: center; gap: 6px;
+        }
+        .btn-logout:hover { background: rgba(255,255,255,0.25); }
+    </style>
+</head>
+<body>
+
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="visible">
+        <div class="login-box">
+            <div class="login-logo"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="login-title">KBMS Shavira</div>
+            <div class="login-sub">Universitas Pendidikan Ganesha &mdash; Admin Login</div>
+            <form onsubmit="event.preventDefault(); doLogin();">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="login-username" placeholder="Username admin" autocomplete="username" required>
+                </div>
+                <div class="form-group" style="margin-top:1rem;">
+                    <label>Password</label>
+                    <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" required>
+                </div>
+                <div id="login-error"><i class="fa-solid fa-circle-exclamation"></i> <span id="login-error-msg"></span></div>
+                <button type="submit" class="btn-primary" id="login-btn" style="width:100%;margin-top:1.5rem;justify-content:center;">
+                    <i class="fa-solid fa-right-to-bracket"></i> Masuk ke Dashboard
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="brand-container">
+            <div class="brand-logo">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div>
+                <div class="brand-title">KBMS Shavira Undiksha</div>
+                <div class="brand-sub">FastAPI Web Admin & Knowledge Management System</div>
+            </div>
+        </div>
+        <div class="system-status-badge" id="health-badge" style="display:flex;gap:12px;align-items:center;">
+            <div style="display:flex;align-items:center;gap:8px;">
+                <span class="dot-online"></span>
+                <span id="health-text">Connecting...</span>
+            </div>
+            <button class="btn-logout" id="logout-btn" onclick="doLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </button>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside>
+            <button class="nav-button active" onclick="switchTab('overview')">
+                <i class="fa-solid fa-chart-pie"></i> Overview
+            </button>
+            <button class="nav-button" onclick="switchTab('crawler')">
+                <i class="fa-solid fa-spider"></i> Web Crawler
+            </button>
+            <button class="nav-button" onclick="switchTab('kb')">
+                <i class="fa-solid fa-book-bookmark"></i> Knowledge Base
+            </button>
+            <button class="nav-button" onclick="switchTab('query-test')">
+                <i class="fa-solid fa-magnifying-glass"></i> Query Test
+            </button>
+            <button class="nav-button" onclick="switchTab('analytics')">
+                <i class="fa-solid fa-chart-line"></i> Analytics & Gaps
+            </button>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <!-- TAB 1: OVERVIEW -->
+            <div id="tab-overview" class="tab-content active">
+                <div class="section-header">
+                    <h2 class="section-title">📊 Dashboard Overview</h2>
+                    <p class="section-desc">Ringkasan real-time kapasitas Knowledge Base dan statistik query Shavira Undiksha.</p>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div>
+                            <div class="kpi-title">Total Dokumen</div>
+                            <div class="kpi-value" id="kpi-total-docs">-</div>
+                        </div>
+                        <div class="kpi-icon"><i class="fa-solid fa-file-lines"></i></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div>
+                            <div class="kpi-title">Total Vector Chunks</div>
+                            <div class="kpi-value" id="kpi-total-chunks">-</div>
+                        </div>
+                        <div class="kpi-icon" style="color: var(--accent); background: rgba(6, 182, 212, 0.15);">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div>
+                            <div class="kpi-title">Query Hari Ini</div>
+                            <div class="kpi-value" id="kpi-queries-today">-</div>
+                        </div>
+                        <div class="kpi-icon" style="color: var(--success); background: rgba(16, 185, 129, 0.15);">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div>
+                            <div class="kpi-title">Knowledge Gap Rate</div>
+                            <div class="kpi-value" id="kpi-gap-rate">-</div>
+                        </div>
+                        <div class="kpi-icon" style="color: var(--warning); background: rgba(245, 158, 11, 0.15);">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>🕒 Log Pertanyaan Terbaru</h3>
+                    <table id="recent-queries-table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Pertanyaan</th>
+                                <th>Top Score</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="4" style="text-align:center;">Memuat data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB CRAWLER: WEB CRAWLER SERVICE (Komponen 2 Diagram) -->
+            <div id="tab-crawler" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">🕸️ Web Crawler Service (Pengambilan Data)</h2>
+                    <p class="section-desc">Komponen 2 Diagram Shavira KBMS — Bot crawling otomatis untuk mengekstrak dokumen HTML & PDF dari domain Undiksha.</p>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>🚀 Konfigurasi Crawling Web</h3>
+                    <form id="crawler-form" onsubmit="event.preventDefault(); startCrawler();" style="margin-top: 1rem;">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Seed URL Target *</label>
+                                <input type="text" id="crawler-seed-url" value="https://undiksha.ac.id" placeholder="https://undiksha.ac.id" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Allowed Domain Filter *</label>
+                                <input type="text" id="crawler-allowed-domain" value="undiksha.ac.id" placeholder="undiksha.ac.id" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Max Pages Limit *</label>
+                                <input type="number" id="crawler-max-pages" value="15" min="1" max="100" required>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.2rem;">
+                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin: 0; font-size: 0.95rem; color: var(--text-main);">
+                                <input type="checkbox" id="crawler-auto-ingest" checked style="width: 18px; height: 18px; accent-color: var(--primary);">
+                                <strong>Auto-Ingest ke Qdrant KB Store</strong> (Otomatis chunk & embed ke Vector DB setelah crawl)
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-primary" id="btn-start-crawler">
+                            <i class="fa-solid fa-spider"></i> Jalankan Web Crawler
+                        </button>
+                        <span id="crawler-start-msg" style="margin-left: 1rem; font-size: 0.9rem;"></span>
+                    </form>
+                </div>
+
+                <div class="glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3>📡 Real-time Monitoring & Logs</h3>
+                        <span class="badge badge-cyan" id="crawler-status-badge">Idle</span>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="background: #F0F6FF; border: 1px solid #D1DDEF; padding: 0.8rem 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted);">HALAMAN TER-CRAWL</div>
+                            <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-top: 4px;" id="mon-crawled-count">0</div>
+                        </div>
+                        <div style="background: #F0F6FF; border: 1px solid #D1DDEF; padding: 0.8rem 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted);">DURASI WAKTU</div>
+                            <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-top: 4px;" id="mon-duration">0s</div>
+                        </div>
+                        <div style="background: #F0F6FF; border: 1px solid #D1DDEF; padding: 0.8rem 1rem; border-radius: 10px;">
+                            <div style="font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted);">AUTO-INGEST</div>
+                            <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-top: 4px;" id="mon-auto-ingest">Non-aktif</div>
+                        </div>
+                    </div>
+
+                    <label style="font-weight: 700; color: var(--primary);">Terminal Log Output:</label>
+                    <div id="crawler-log-box" style="background: #0B1E3F; color: #60A5FA; font-family: 'Consolas', monospace; font-size: 0.85rem; padding: 1.2rem; border-radius: 10px; height: 220px; overflow-y: auto; border: 1px solid #081630; margin-top: 8px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.2);">
+                        [00:00:00] Web Crawler Service siap digunakan. Klik 'Jalankan Web Crawler' untuk memulai.
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h3>📁 Hasil Crawling Web (Raw Data Store)</h3>
+                        <button class="btn-primary" style="padding: 6px 14px; font-size: 0.8rem;" onclick="loadCrawledPages()">
+                            <i class="fa-solid fa-rotate"></i> Refresh Daftar Halaman
+                        </button>
+                    </div>
+
+                    <table id="crawled-pages-table">
+                        <thead>
+                            <tr>
+                                <th>ID Halaman</th>
+                                <th>Judul Halaman</th>
+                                <th>URL Sumber</th>
+                                <th>Kategori</th>
+                                <th>Unit Sumber</th>
+                                <th>Jumlah Kata</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="7" style="text-align:center;">Memuat daftar halaman hasil crawling...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TAB 2: KNOWLEDGE BASE -->
+            <div id="tab-kb" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">📚 Manajemen Knowledge Base</h2>
+                    <p class="section-desc">Katalog dokumen legal & akademik Undiksha dan form tambah dokumen baru.</p>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>📤 Ingest Dokumen Baru ke Qdrant</h3>
+                    <form id="ingest-form" style="margin-top: 1rem;">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Judul Dokumen *</label>
+                                <input type="text" id="ingest-title" placeholder="contoh: SK Rektor Beasiswa Undiksha 2026" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Tipe Dokumen *</label>
+                                <select id="ingest-type">
+                                    <option value="peraturan">Peraturan</option>
+                                    <option value="sk">SK Rektor</option>
+                                    <option value="mou">MOU / Kerjasama</option>
+                                    <option value="panduan">Panduan / SOP</option>
+                                    <option value="silabus">Silabus / Kurikulum</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Kategori Utama *</label>
+                                <select id="ingest-category">
+                                    <option value="peraturan_kebijakan">Peraturan Kebijakan</option>
+                                    <option value="mou_perjanjian_kerjasama">MOU & Kerjasama</option>
+                                    <option value="pedoman_sop">Pedoman & SOP</option>
+                                    <option value="akademik_kurikulum">Akademik & Kurikulum</option>
+                                    <option value="kemahasiswaan">Kemahasiswaan & Beasiswa</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Topic Tags (pisahkan koma)</label>
+                                <input type="text" id="ingest-tags" value="undiksha, beasiswa">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>📁 Unggah File Dokumen (.PDF, .DOCX, .DOC, .TXT, .MD)</label>
+                            <div style="background: #F8FAFF; border: 2px dashed #93C5FD; border-radius: var(--radius-md); padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.2s ease;" onclick="document.getElementById('ingest-file').click()" id="file-drop-zone" onmouseover="this.style.background='#EFF6FF'; this.style.borderColor='#3B82F6';" onmouseout="this.style.background='#F8FAFF'; this.style.borderColor='#93C5FD';">
+                                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.2rem; color: var(--accent); margin-bottom: 0.6rem;"></i>
+                                <div style="font-size: 0.95rem; color: var(--primary); font-weight: 600;" id="file-select-label">Klik atau Drag & Drop File Dokumen di Sini</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 6px;">Mendukung .pdf, .docx, .doc, .txt, .md (Teks diekstrak otomatis)</div>
+                                <input type="file" id="ingest-file" accept=".pdf,.doc,.docx,.txt,.md" style="display: none;" onchange="handleFileSelection(this)">
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin: 0.8rem 0; font-weight: 600;">— ATAU MANUAL INPUT —</div>
+
+                        <div class="form-group">
+                            <label>Isi Teks Lengkap Dokumen (jika tidak mengunggah file)</label>
+                            <textarea id="ingest-content" rows="4" placeholder="Tempelkan isi teks lengkap dokumen di sini..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Mulai Ingest Dokumen
+                        </button>
+                        <span id="ingest-status-msg" style="margin-left: 1rem; font-size: 0.9rem;"></span>
+                    </form>
+                </div>
+
+                <div class="glass-panel">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom: 1rem;">
+                        <h3 style="margin:0;">📑 Katalog Dokumen Tersimpan</h3>
+                        <span class="badge badge-cyan" id="catalog-count-badge">0 Dokumen</span>
+                    </div>
+
+                    <!-- Search & Filter Bar -->
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <input type="text" id="catalog-search-input" placeholder="🔍 Cari Judul / ID Dokumen..." oninput="filterKBCatalog()">
+                        </div>
+                        <div>
+                            <select id="catalog-category-filter" onchange="filterKBCatalog()">
+                                <option value="ALL">Semua Kategori</option>
+                                <option value="peraturan_kebijakan">Peraturan Kebijakan</option>
+                                <option value="mou_perjanjian_kerjasama">MOU & Kerjasama</option>
+                                <option value="pedoman_sop">Pedoman & SOP</option>
+                                <option value="akademik_kurikulum">Akademik & Kurikulum</option>
+                                <option value="kemahasiswaan">Kemahasiswaan & Beasiswa</option>
+                                <option value="lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <table id="kb-documents-table">
+                        <thead>
+                            <tr>
+                                <th>ID Dokumen</th>
+                                <th>Judul Dokumen</th>
+                                <th>Kategori</th>
+                                <th>Tipe</th>
+                                <th>Total Chunks</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="6" style="text-align:center;">Memuat katalog dokumen...</td></tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Pagination Controls -->
+                    <div id="kb-pagination" style="display:flex; justify-content:space-between; align-items:center; margin-top:1.2rem; flex-wrap:wrap; gap:0.8rem;">
+                        <div style="font-size:0.85rem; color:var(--text-muted);" id="kb-pagination-info">Menampilkan 0 dokumen</div>
+                        <div style="display:flex; gap:0.5rem;">
+                            <button class="btn-primary" style="padding:6px 14px; font-size:0.82rem;" onclick="kbChangePage(kbCurrentPage - 1)" id="btn-kb-prev">
+                                <i class="fa-solid fa-chevron-left"></i> Prev
+                            </button>
+                            <span id="kb-page-indicator" style="padding:6px 10px; background:var(--card-bg); border:1px solid var(--card-border); border-radius:8px; font-size:0.85rem; font-weight:600; color:var(--primary);">1 / 1</span>
+                            <button class="btn-primary" style="padding:6px 14px; font-size:0.82rem;" onclick="kbChangePage(kbCurrentPage + 1)" id="btn-kb-next">
+                                Next <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: QUERY TEST / CHAT BUBBLE -->
+            <div id="tab-query-test" class="tab-content">
+                <div class="section-header">
+                    <h2 class="section-title">💬 Uji Coba Chat Shavira Assistant</h2>
+                    <p class="section-desc">Uji langsung pipeline RAG Shavira. Percakapan multi-turn didukung — Shavira mengingat konteks dalam satu sesi.</p>
+                </div>
+
+                <div class="glass-panel" style="padding:0; overflow:hidden;">
+                    <!-- Chat Header -->
+                    <div style="padding:1rem 1.5rem; border-bottom:1px solid var(--card-border); display:flex; justify-content:space-between; align-items:center; background:rgba(20,76,148,0.04);">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:1.1rem;"><i class="fa-solid fa-robot"></i></div>
+                            <div>
+                                <div style="font-weight:700;font-size:0.95rem;color:var(--primary);">SHAVIRA</div>
+                                <div style="font-size:0.75rem;color:var(--text-muted);">Asisten Akademik & Hukum Undiksha</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:0.5rem;">
+                            <button class="btn-primary" style="padding:6px 12px;font-size:0.78rem;" onclick="exportChatHistory()">
+                                <i class="fa-solid fa-download"></i> Export
+                            </button>
+                            <button onclick="clearChat()" style="background:none;border:1px solid var(--card-border);color:var(--text-muted);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:600;">
+                                <i class="fa-solid fa-trash"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages Area -->
+                    <div id="chat-messages" style="height:420px;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;background:#F8FAFC;">
+                        <div class="chat-bubble-assistant" style="display:flex;gap:10px;align-items:flex-start;max-width:85%;">
+                            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;flex-shrink:0;"><i class="fa-solid fa-robot"></i></div>
+                            <div style="background:white;border:1px solid var(--card-border);padding:0.8rem 1rem;border-radius:0 12px 12px 12px;font-size:0.9rem;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,0.05);">
+                                Halo! Saya <strong>SHAVIRA</strong>, asisten virtual resmi Universitas Pendidikan Ganesha. Silakan tanyakan apa saja seputar peraturan akademik, kebijakan kemahasiswaan, atau dokumen hukum Undiksha. 🎓
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Sources (collapsible) -->
+                    <div id="chat-sources-area" style="display:none; padding:0 1.5rem 1rem; border-top:1px solid var(--card-border); background:#F8FAFC;">
+                        <details>
+                            <summary style="cursor:pointer;font-size:0.85rem;color:var(--primary);font-weight:600;padding:0.5rem 0;">📑 Lihat Chunk Sumber yang Diretrieve</summary>
+                            <div id="chat-sources-list" style="margin-top:0.8rem;"></div>
+                        </details>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div style="padding:1rem 1.5rem; border-top:1px solid var(--card-border); background:white; display:flex; gap:0.8rem; align-items:flex-end;">
+                        <textarea id="chat-input" rows="2" placeholder="Ketik pertanyaan Anda di sini... (Enter untuk kirim, Shift+Enter untuk baris baru)" style="flex:1;resize:none;border-radius:12px;padding:0.7rem 1rem;font-size:0.9rem;" onkeydown="handleChatKeydown(event)"></textarea>
+                        <button id="chat-send-btn" class="btn-primary" style="padding:10px 20px;border-radius:12px;flex-shrink:0;" onclick="sendChatMessage()">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- TAB 4: ANALYTICS -->
+            <div id="tab-analytics" class="tab-content">
+                <div class="section-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2 class="section-title">📈 Analytics & Insight</h2>
+                        <p class="section-desc">Pantau performa pipeline RAG, tren pencarian, dan area *knowledge gaps* secara visual.</p>
+                    </div>
+                    <div>
+                        <button class="btn-primary" onclick="exportAnalyticsCSV()" style="padding:10px 20px; font-weight:600; background:linear-gradient(135deg, #10B981, #059669);">
+                            <i class="fa-solid fa-file-csv"></i> Export Data CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem;">
+                    <div class="glass-panel" style="padding:1.4rem;">
+                        <h3 style="margin-top:0; margin-bottom:1rem; font-size:1rem; color:var(--primary);">📊 Tren Volume Query (7 Hari Terakhir)</h3>
+                        <div style="position:relative; height:240px;">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-panel" style="padding:1.4rem;">
+                        <h3 style="margin-top:0; margin-bottom:1rem; font-size:1rem; color:var(--primary);">🔥 Top 5 Query Populer (All Time)</h3>
+                        <div style="position:relative; height:240px;">
+                            <canvas id="topQueriesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3>⚠️ Daftar Pertanyaan Unanswered / Knowledge Gaps</h3>
+                    <table id="gaps-table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Pertanyaan</th>
+                                <th>Top Similarity Score</th>
+                                <th>Waktu Respon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="4" style="text-align:center;">Memuat data gaps...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const API_BASE = '/api';
+        let crawlerPollInterval = null;
+
+        // ============================================
+        // AUTH — Login / Logout / Token Management
+        // ============================================
+        function getToken() { return sessionStorage.getItem('shavira_token'); }
+
+        function authHeaders() {
+            const token = getToken();
+            return token ? { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+        }
+
+        async function doLogin() {
+            const username = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value;
+            const btn = document.getElementById('login-btn');
+            const errEl = document.getElementById('login-error');
+            const errMsg = document.getElementById('login-error-msg');
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Memverifikasi...';
+            errEl.style.display = 'none';
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/token`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    sessionStorage.setItem('shavira_token', data.access_token);
+                    document.getElementById('login-overlay').classList.remove('visible');
+                    document.getElementById('logout-btn').style.display = 'flex';
+                    await checkHealth();
+                    await loadOverviewData();
+                } else {
+                    const err = await res.json();
+                    errMsg.textContent = err.detail || 'Login gagal.';
+                    errEl.style.display = 'block';
+                }
+            } catch (e) {
+                errMsg.textContent = 'Tidak dapat terhubung ke server.';
+                errEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Masuk ke Dashboard';
+            }
+        }
+
+        function doLogout() {
+            sessionStorage.removeItem('shavira_token');
+            document.getElementById('login-overlay').classList.add('visible');
+            document.getElementById('logout-btn').style.display = 'none';
+            document.getElementById('login-password').value = '';
+        }
+
+        // Saat halaman dimuat, cek apakah sudah punya token
+        window.addEventListener('DOMContentLoaded', () => {
+            const token = getToken();
+            if (token) {
+                document.getElementById('login-overlay').classList.remove('visible');
+                document.getElementById('logout-btn').style.display = 'flex';
+                checkHealth();
+                loadOverviewData();
+            }
+        });
+
+        // Intercept fetch untuk endpoint yang butuh auth otomatis
+        const _origFetch = window.fetch;
+        window.fetch = async function(url, opts = {}) {
+            const token = getToken();
+            if (token && typeof url === 'string' && url.startsWith('/api/')) {
+                opts.headers = { ...(opts.headers || {}), 'Authorization': `Bearer ${token}` };
+            }
+            const res = await _origFetch(url, opts);
+            if (res.status === 401 && typeof url === 'string' && url.startsWith('/api/')) {
+                doLogout();
+            }
+            return res;
+        };
+
+        // Tab Switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-button').forEach(el => el.classList.remove('active'));
+
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            event.currentTarget.classList.add('active');
+
+            if (tabId === 'overview') loadOverviewData();
+            if (tabId === 'crawler') { loadCrawledPages(); pollCrawlerStatus(); }
+            if (tabId === 'kb') loadKBCatalog();
+            if (tabId === 'analytics') loadAnalyticsData();
+        }
+
+        // Fetch Health Status
+        async function checkHealth() {
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                const data = await res.json();
+                if (data.status === 'OK') {
+                    document.getElementById('health-text').innerText = `API Connected (${data.total_vectors} chunks)`;
+                }
+            } catch (err) {
+                document.getElementById('health-text').innerText = 'API Offline';
+                document.getElementById('health-badge').style.borderColor = 'red';
+            }
+        }
+
+        // Load Overview Data
+        async function loadOverviewData() {
+            try {
+                const resOverview = await fetch(`${API_BASE}/analytics/overview`);
+                const dataOverview = await resOverview.json();
+
+                const resDocs = await fetch(`${API_BASE}/kb/documents`);
+                const dataDocs = await resDocs.json();
+
+                document.getElementById('kpi-total-docs').innerText = dataDocs.total_documents || 0;
+                document.getElementById('kpi-total-chunks').innerText = dataDocs.total_chunks || dataOverview.total_chunks || 0;
+                document.getElementById('kpi-queries-today').innerText = dataOverview.queries_today || 0;
+                document.getElementById('kpi-gap-rate').innerText = `${dataOverview.gap_rate_percent || 0}%`;
+
+                // Populate recent table
+                const tbody = document.querySelector('#recent-queries-table tbody');
+                tbody.innerHTML = '';
+                if (dataOverview.recent_queries && dataOverview.recent_queries.length > 0) {
+                    dataOverview.recent_queries.forEach(q => {
+                        const tr = document.createElement('tr');
+                        const timeStr = q.timestamp.split('T')[1]?.split('.')[0] || q.timestamp;
+                        const statusBadge = q.is_gap ? '<span class="badge badge-red">Gap</span>' : '<span class="badge badge-green">Terjawab</span>';
+                        tr.innerHTML = `<td>${timeStr}</td><td>${q.query}</td><td>${q.top_score}</td><td>${statusBadge}</td>`;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Belum ada query tercatat hari ini.</td></tr>';
+                }
+            } catch (err) {
+                console.error('Failed to load overview:', err);
+            }
+        }
+
+        // Web Crawler Functions
+        async function startCrawler() {
+            const seedUrl = document.getElementById('crawler-seed-url').value.trim();
+            const allowedDomain = document.getElementById('crawler-allowed-domain').value.trim();
+            const maxPages = parseInt(document.getElementById('crawler-max-pages').value) || 15;
+            const autoIngest = document.getElementById('crawler-auto-ingest').checked;
+            const msgEl = document.getElementById('crawler-start-msg');
+
+            msgEl.innerText = '🚀 Memulai Web Crawler...';
+            msgEl.style.color = '#3B82F6';
+
+            try {
+                const res = await fetch(`${API_BASE}/crawler/start`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        seed_url: seedUrl,
+                        allowed_domain: allowedDomain,
+                        max_pages: maxPages,
+                        auto_ingest: autoIngest
+                    })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    msgEl.innerText = `✅ Crawler dimulai! Max Halaman: ${maxPages}`;
+                    msgEl.style.color = '#10B981';
+                    pollCrawlerStatus();
+                } else {
+                    msgEl.innerText = `⚠️ ${data.detail || 'Gagal memulai crawler'}`;
+                    msgEl.style.color = '#F59E0B';
+                }
+            } catch (err) {
+                msgEl.innerText = `❌ Error: ${err.message}`;
+                msgEl.style.color = '#EF4444';
+            }
+        }
+
+        async function pollCrawlerStatus() {
+            try {
+                const res = await fetch(`${API_BASE}/crawler/status`);
+                const data = await res.json();
+
+                const badge = document.getElementById('crawler-status-badge');
+                if (data.is_running) {
+                    badge.className = 'badge badge-green';
+                    badge.innerText = '🔄 Crawling Active';
+                } else {
+                    badge.className = 'badge badge-cyan';
+                    badge.innerText = 'Idle';
+                }
+
+                document.getElementById('mon-crawled-count').innerText = data.pages_crawled || 0;
+                document.getElementById('mon-duration').innerText = `${data.duration_sec || 0}s`;
+                document.getElementById('mon-auto-ingest').innerText = data.auto_ingest ? 'Aktif' : 'Non-aktif';
+
+                // Log Box
+                const logBox = document.getElementById('crawler-log-box');
+                if (data.logs && data.logs.length > 0) {
+                    logBox.innerHTML = data.logs.map(l => `<div>${escapeHtml(l)}</div>`).join('');
+                    logBox.scrollTop = logBox.scrollHeight;
+                }
+
+                // If running, set interval poll
+                if (data.is_running && !crawlerPollInterval) {
+                    crawlerPollInterval = setInterval(pollCrawlerStatus, 2000);
+                } else if (!data.is_running && crawlerPollInterval) {
+                    clearInterval(crawlerPollInterval);
+                    crawlerPollInterval = null;
+                    loadCrawledPages();
+                    loadOverviewData();
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function loadCrawledPages() {
+            try {
+                const res = await fetch(`${API_BASE}/crawler/pages`);
+                const data = await res.json();
+                const tbody = document.querySelector('#crawled-pages-table tbody');
+                tbody.innerHTML = '';
+
+                if (data.pages && data.pages.length > 0) {
+                    data.pages.forEach(p => {
+                        const tr = document.createElement('tr');
+                        const safeUrl = p.source_url.length > 35 ? p.source_url.substring(0, 35) + '...' : p.source_url;
+                        tr.innerHTML = `
+                            <td><code>${p.page_id}</code></td>
+                            <td><strong>${escapeHtml(p.title)}</strong></td>
+                            <td><a href="${p.source_url}" target="_blank" style="color:var(--accent); text-decoration:none;">${escapeHtml(safeUrl)}</a></td>
+                            <td><span class="badge badge-blue">${p.category}</span></td>
+                            <td><span class="badge badge-cyan">${p.source_unit}</span></td>
+                            <td>${p.word_count} kata</td>
+                            <td style="display:flex; gap:0.5rem;">
+                                <button class="btn-primary" style="padding:4px 10px; font-size:0.78rem;" onclick="viewCrawledPageDetail('${p.page_id}')">
+                                    <i class="fa-solid fa-eye"></i> Teks
+                                </button>
+                                <button class="btn-primary" style="padding:4px 10px; font-size:0.78rem; background:linear-gradient(135deg, #10B981, #059669);" onclick="ingestCrawledPage('${p.page_id}')">
+                                    <i class="fa-solid fa-cloud-arrow-up"></i> Ingest KB
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada hasil crawling. Klik \'Jalankan Web Crawler\' untuk mengumpulkan data.</td></tr>';
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function viewCrawledPageDetail(pageId) {
+            try {
+                const res = await fetch(`${API_BASE}/crawler/pages/${pageId}`);
+                const doc = await res.json();
+                alert(`📄 DOKUMEN WEB TER-CRAWL:\n\nJudul: ${doc.title}\nURL: ${doc.source_url}\nKata: ${doc.word_count}\n\nPREVIEW TEKS:\n${doc.text.substring(0, 500)}...`);
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+            }
+        }
+
+        async function ingestCrawledPage(pageId) {
+            try {
+                const res = await fetch(`${API_BASE}/crawler/ingest-page/${pageId}`, { method: 'POST' });
+                const data = await res.json();
+                if (res.ok) {
+                    alert(`✅ Berhasil di-ingest ke Qdrant Vector Store! Document ID: ${data.doc_id} (${data.chunks_ingested} chunks)`);
+                    loadKBCatalog();
+                    loadOverviewData();
+                } else {
+                    alert(`❌ Gagal: ${data.detail}`);
+                }
+            } catch (err) {
+                alert(`Error: ${err.message}`);
+            }
+        }
+
+        // Load KB Catalog — Server-side Pagination
+        let kbCurrentPage = 1;
+        const KB_LIMIT = 15;
+        let kbTotalPages = 1;
+
+        async function loadKBCatalog(page = 1) {
+            kbCurrentPage = page;
+            const category = document.getElementById('catalog-category-filter')?.value || 'ALL';
+            const query = (document.getElementById('catalog-search-input')?.value || '').trim();
+            
+            let url = `${API_BASE}/kb/documents?page=${page}&limit=${KB_LIMIT}`;
+            if (category && category !== 'ALL') url += `&category=${encodeURIComponent(category)}`;
+            if (query) url += `&query=${encodeURIComponent(query)}`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                kbTotalPages = data.total_pages || 1;
+                renderKBCatalog(data.documents || [], data.total_documents || 0, data.total_chunks || 0);
+                updateKBPagination(data.total_documents || 0);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function kbChangePage(newPage) {
+            if (newPage < 1 || newPage > kbTotalPages) return;
+            loadKBCatalog(newPage);
+        }
+
+        function updateKBPagination(totalDocs) {
+            const start = ((kbCurrentPage - 1) * KB_LIMIT) + 1;
+            const end = Math.min(kbCurrentPage * KB_LIMIT, totalDocs);
+            document.getElementById('kb-pagination-info').textContent =
+                totalDocs > 0 ? `Menampilkan ${start}–${end} dari ${totalDocs} dokumen` : 'Tidak ada dokumen.';
+            document.getElementById('kb-page-indicator').textContent = `${kbCurrentPage} / ${kbTotalPages}`;
+            document.getElementById('btn-kb-prev').disabled = kbCurrentPage <= 1;
+            document.getElementById('btn-kb-next').disabled = kbCurrentPage >= kbTotalPages;
+        }
+
+        function filterKBCatalog() {
+            loadKBCatalog(1);
+        }
+
+
+        function renderKBCatalog(docs, totalDocs, totalChunks) {
+            const tbody = document.querySelector('#kb-documents-table tbody');
+            const countBadge = document.getElementById('catalog-count-badge');
+            if (countBadge) countBadge.innerText = `${totalDocs || docs.length} Dokumen`;
+
+            tbody.innerHTML = '';
+
+            if (docs && docs.length > 0) {
+                docs.forEach(doc => {
+                    const tr = document.createElement('tr');
+                    const safeDocId = doc.doc_id.replace(/'/g, "\\'");
+                    const safeTitle = (doc.title || '').replace(/'/g, "\\'");
+                    tr.innerHTML = `
+                        <td><code>${doc.doc_id}</code></td>
+                        <td><strong>${escapeHtml(doc.title)}</strong></td>
+                        <td><span class="badge badge-blue">${doc.category}</span></td>
+                        <td><span class="badge badge-cyan">${doc.document_type}</span></td>
+                        <td>${doc.chunk_count}</td>
+                        <td style="display:flex; gap:0.5rem; align-items:center;">
+                            <button class="btn-primary" style="padding: 5px 12px; font-size: 0.8rem;" onclick="viewDocumentDetail('${safeDocId}')">
+                                <i class="fa-solid fa-eye"></i> Detail
+                            </button>
+                            <button class="btn-danger" style="padding: 5px 12px; font-size: 0.8rem;" onclick="deleteDocument('${safeDocId}', '${safeTitle}')">
+                                <i class="fa-solid fa-trash"></i> Hapus
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Dokumen tidak ditemukan.</td></tr>';
+            }
+        }
+
+        async function deleteDocument(docId, title) {
+            const confirmDelete = confirm(`⚠️ Hapus Dokumen Permanen?\n\nJudul: ${title}\nID: ${docId}\n\nTindakan ini akan menghapus seluruh vector chunk dari database Qdrant.`);
+            if (!confirmDelete) return;
+
+            try {
+                const res = await fetch(`${API_BASE}/kb/documents/${encodeURIComponent(docId)}`, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert(`✅ ${data.message || 'Dokumen berhasil dihapus'}`);
+                    loadKBCatalog();
+                    loadOverviewData();
+                } else {
+                    alert(`❌ Gagal menghapus dokumen: ${data.detail || 'Error'}`);
+                }
+            } catch (err) {
+                alert(`❌ Connection Error: ${err.message}`);
+            }
+        }
+
+        // View Document Details & Chunks Modal
+        let currentModalChunks = [];
+
+        async function viewDocumentDetail(docId) {
+            const overlay = document.getElementById('doc-modal-overlay');
+            overlay.style.display = 'flex';
+            document.getElementById('modal-doc-title').innerText = 'Memuat detail dokumen...';
+            document.getElementById('modal-chunks-container').innerHTML = '<div style="text-align:center; padding:2rem;">🔄 Mengambil data chunk dari Qdrant...</div>';
+
+            try {
+                const res = await fetch(`${API_BASE}/kb/documents/${encodeURIComponent(docId)}`);
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.detail || 'Gagal memuat dokumen');
+
+                const doc = data.document;
+                currentModalChunks = data.chunks || [];
+
+                document.getElementById('modal-doc-title').innerText = doc.title;
+                document.getElementById('modal-doc-id').innerText = `ID: ${doc.doc_id}`;
+                document.getElementById('modal-doc-cat').innerText = `Kategori: ${doc.category} (${doc.document_type})`;
+                document.getElementById('modal-doc-chunks-count').innerText = `${doc.total_chunks} Total Vector Chunks`;
+
+                renderModalChunks(currentModalChunks);
+            } catch (err) {
+                document.getElementById('modal-doc-title').innerText = 'Gagal Memuat Dokumen';
+                document.getElementById('modal-chunks-container').innerHTML = `<div style="color:var(--danger); text-align:center; padding:2rem;">❌ ${err.message}</div>`;
+            }
+        }
+
+        function renderModalChunks(chunks) {
+            const container = document.getElementById('modal-chunks-container');
+            container.innerHTML = '';
+
+            if (!chunks || chunks.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Tidak ada chunk ditemukan.</div>';
+                return;
+            }
+
+            chunks.forEach((chunk, i) => {
+                const card = document.createElement('div');
+                card.className = 'chunk-card';
+                card.style.marginBottom = '0.8rem';
+                card.innerHTML = `
+                    <div class="chunk-header">
+                        <span><strong style="color:var(--accent);">Chunk #${i+1}</strong> • <code>${chunk.chunk_id}</code></span>
+                        <span class="badge badge-blue">${chunk.section_header || 'Bagian'}</span>
+                    </div>
+                    <div style="font-size: 0.9rem; line-height: 1.6; white-space: pre-wrap; color: var(--text-main); margin-top: 6px;">${escapeHtml(chunk.text)}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterModalChunks() {
+            const query = document.getElementById('modal-chunk-search').value.toLowerCase().trim();
+            if (!query) {
+                renderModalChunks(currentModalChunks);
+                return;
+            }
+            const filtered = currentModalChunks.filter(c => 
+                (c.text && c.text.toLowerCase().includes(query)) ||
+                (c.section_header && c.section_header.toLowerCase().includes(query)) ||
+                (c.chunk_id && c.chunk_id.toLowerCase().includes(query))
+            );
+            renderModalChunks(filtered);
+        }
+
+        function closeDocModal() {
+            document.getElementById('doc-modal-overlay').style.display = 'none';
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function handleFileSelection(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                document.getElementById('file-select-label').innerHTML = `<strong style="color:var(--success);">✅ File Dipilih: ${file.name}</strong> (${(file.size / 1024).toFixed(1)} KB)`;
+                document.getElementById('file-drop-zone').style.borderColor = 'var(--success)';
+                
+                const titleInput = document.getElementById('ingest-title');
+                if (!titleInput.value || !titleInput.value.trim()) {
+                    const nameNoExt = file.name.replace(/\.[^/.]+$/, "");
+                    titleInput.value = nameNoExt;
+                }
+            }
+        }
+
+        // Handle Form Ingestion
+        document.getElementById('ingest-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msgEl = document.getElementById('ingest-status-msg');
+            const fileInput = document.getElementById('ingest-file');
+            const contentInput = document.getElementById('ingest-content').value.trim();
+            const titleInput = document.getElementById('ingest-title').value.trim();
+
+            if (!fileInput.files.length && !contentInput) {
+                msgEl.innerText = '⚠️ Harap pilih file (.pdf, .docx) ATAU isi teks dokumen!';
+                msgEl.style.color = '#F59E0B';
+                return;
+            }
+
+            msgEl.innerText = '🔄 Mengurai teks, chunking, & embedding ke Qdrant...';
+            msgEl.style.color = '#3B82F6';
+
+            try {
+                let res, data;
+                if (fileInput.files.length > 0) {
+                    const formData = new FormData();
+                    formData.append('file', fileInput.files[0]);
+                    if (titleInput) formData.append('title', titleInput);
+                    formData.append('category', document.getElementById('ingest-category').value);
+                    formData.append('document_type', document.getElementById('ingest-type').value);
+                    formData.append('topic_tags', document.getElementById('ingest-tags').value);
+
+                    res = await fetch(`${API_BASE}/kb/ingest-file`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                } else {
+                    const payload = {
+                        title: titleInput,
+                        content: contentInput,
+                        category: document.getElementById('ingest-category').value,
+                        document_type: document.getElementById('ingest-type').value,
+                        topic_tags: document.getElementById('ingest-tags').value.split(',').map(s => s.trim())
+                    };
+
+                    res = await fetch(`${API_BASE}/kb/ingest`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                }
+
+                data = await res.json();
+                if (res.ok) {
+                    msgEl.innerText = `✅ Ingest Berhasil! Document ID: ${data.doc_id} (${data.chunks_ingested} chunks disimpan)`;
+                    msgEl.style.color = '#10B981';
+                    document.getElementById('ingest-form').reset();
+                    document.getElementById('file-select-label').innerText = 'Pilih atau Drag & Drop File PDF / Word di sini';
+                    document.getElementById('file-drop-zone').style.borderColor = 'var(--card-border)';
+                    loadKBCatalog();
+                } else {
+                    msgEl.innerText = `❌ Gagal: ${data.detail || 'Error'}`;
+                    msgEl.style.color = '#EF4444';
+                }
+            } catch (err) {
+                msgEl.innerText = `❌ Connection Error: ${err.message}`;
+                msgEl.style.color = '#EF4444';
+            }
+        });
+
+        // =============================================
+        // CHAT BUBBLE UI — Multi-Turn Conversation
+        // =============================================
+        let chatHistory = [];  // { role: 'user'|'assistant', content: string }
+
+        function handleChatKeydown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendChatMessage();
+            }
+        }
+
+        function appendBubble(role, content, sources = null) {
+            const container = document.getElementById('chat-messages');
+            const wrapper = document.createElement('div');
+
+            if (role === 'user') {
+                wrapper.style.cssText = 'display:flex;justify-content:flex-end;';
+                wrapper.innerHTML = `
+                    <div style="background:linear-gradient(135deg,var(--primary),var(--accent));color:white;padding:0.8rem 1rem;border-radius:12px 0 12px 12px;font-size:0.9rem;line-height:1.6;max-width:80%;box-shadow:0 2px 8px rgba(20,76,148,0.2);white-space:pre-wrap;">${escapeHtml(content)}</div>
+                `;
+            } else if (role === 'loading') {
+                wrapper.id = 'chat-loading-bubble';
+                wrapper.style.cssText = 'display:flex;gap:10px;align-items:flex-start;max-width:85%;';
+                wrapper.innerHTML = `
+                    <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;flex-shrink:0;"><i class="fa-solid fa-robot"></i></div>
+                    <div style="background:white;border:1px solid var(--card-border);padding:0.8rem 1rem;border-radius:0 12px 12px 12px;font-size:0.9rem;box-shadow:0 1px 4px rgba(0,0,0,0.05);">🤔 Shavira sedang mencari jawaban... <i class="fa-solid fa-spinner fa-spin" style="color:var(--primary);"></i></div>
+                `;
+            } else {
+                wrapper.style.cssText = 'display:flex;gap:10px;align-items:flex-start;max-width:85%;';
+                const formattedContent = escapeHtml(content).replace(/\n/g, '<br>');
+                wrapper.innerHTML = `
+                    <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;flex-shrink:0;"><i class="fa-solid fa-robot"></i></div>
+                    <div style="background:white;border:1px solid var(--card-border);padding:0.8rem 1rem;border-radius:0 12px 12px 12px;font-size:0.9rem;line-height:1.7;box-shadow:0 1px 4px rgba(0,0,0,0.05);">${formattedContent}</div>
+                `;
+            }
+
+            container.appendChild(wrapper);
+            container.scrollTop = container.scrollHeight;
+
+            // Tampilkan sources jika ada
+            if (sources && sources.length > 0) {
+                const sourcesArea = document.getElementById('chat-sources-area');
+                const sourcesList = document.getElementById('chat-sources-list');
+                sourcesArea.style.display = 'block';
+                sourcesList.innerHTML = sources.map((s, i) => `
+                    <div style="border:1px solid var(--card-border);border-radius:8px;padding:0.6rem 0.8rem;margin-bottom:0.5rem;font-size:0.82rem;background:white;">
+                        <div style="font-weight:600;color:var(--primary);margin-bottom:4px;">#${i+1} ${escapeHtml(s.title || '')} <span style="color:var(--text-muted);font-weight:400;">(${s.section_header || 'Bagian'})</span></div>
+                        <div style="display:flex;gap:8px;margin-bottom:4px;">
+                            <span class="badge badge-blue">Score: ${s.score}</span>
+                            <span class="badge badge-cyan">${s.category || 'lainnya'}</span>
+                        </div>
+                        <div style="color:var(--text-muted);font-size:0.8rem;white-space:pre-wrap;">${escapeHtml((s.text || '').substring(0, 300))}...</div>
+                    </div>
+                `).join('');
+            }
+
+            return wrapper;
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const btn = document.getElementById('chat-send-btn');
+            const query = input.value.trim();
+            if (!query) return;
+
+            input.value = '';
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+            // Tampilkan bubble user
+            appendBubble('user', query);
+
+            // Tampilkan loading bubble
+            appendBubble('loading', '');
+
+            try {
+                const res = await fetch(`${API_BASE}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: query,
+                        top_k: 5,
+                        history: chatHistory.slice(-6)  // Kirim maks 6 pesan terakhir
+                    })
+                });
+                const data = await res.json();
+
+                // Hapus loading bubble
+                const loadingEl = document.getElementById('chat-loading-bubble');
+                if (loadingEl) loadingEl.remove();
+
+                const answer = data.answer || 'Maaf, tidak ada jawaban.';
+
+                // Tambah ke history
+                chatHistory.push({ role: 'user', content: query });
+                chatHistory.push({ role: 'assistant', content: answer });
+
+                // Tampilkan bubble jawaban
+                appendBubble('assistant', answer, data.sources);
+
+            } catch (err) {
+                const loadingEl = document.getElementById('chat-loading-bubble');
+                if (loadingEl) loadingEl.remove();
+                appendBubble('assistant', `❌ Koneksi gagal: ${err.message}`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+                input.focus();
+            }
+        }
+
+        function clearChat() {
+            if (!confirm('Hapus seluruh riwayat percakapan?')) return;
+            chatHistory = [];
+            const container = document.getElementById('chat-messages');
+            container.innerHTML = `
+                <div style="display:flex;gap:10px;align-items:flex-start;max-width:85%;">
+                    <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-size:0.9rem;flex-shrink:0;"><i class="fa-solid fa-robot"></i></div>
+                    <div style="background:white;border:1px solid var(--card-border);padding:0.8rem 1rem;border-radius:0 12px 12px 12px;font-size:0.9rem;line-height:1.6;box-shadow:0 1px 4px rgba(0,0,0,0.05);">Halo! Saya <strong>SHAVIRA</strong>. Riwayat percakapan telah dihapus. Ada yang bisa saya bantu? 🎓</div>
+                </div>`;
+            document.getElementById('chat-sources-area').style.display = 'none';
+        }
+
+        function exportChatHistory() {
+            if (chatHistory.length === 0) { alert('Tidak ada percakapan untuk diekspor.'); return; }
+            const lines = chatHistory.map(m => `[${m.role.toUpperCase()}]\n${m.content}\n`);
+            const blob = new Blob([lines.join('\n---\n\n')], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `shavira-chat-${new Date().toISOString().slice(0,10)}.txt`;
+            a.click();
+        }
+
+        // =============================================
+        // Load Analytics Data & Charts
+        // =============================================
+        let trendChartInstance = null;
+        let topQueriesChartInstance = null;
+        let gapsDataForExport = [];
+
+        async function loadAnalyticsData() {
+            // Load Trend Chart
+            try {
+                const resTrend = await fetch(`${API_BASE}/analytics/trend`);
+                if (resTrend.ok) {
+                    const dataTrend = await resTrend.json();
+                    renderTrendChart(dataTrend);
+                }
+            } catch (e) { console.error("Gagal load trend chart", e); }
+
+            // Load Top Queries
+            try {
+                const resTop = await fetch(`${API_BASE}/analytics/top-queries`);
+                if (resTop.ok) {
+                    const dataTop = await resTop.json();
+                    renderTopQueriesChart(dataTop);
+                }
+            } catch (e) { console.error("Gagal load top queries", e); }
+
+            // Load Gaps Table
+            try {
+                const resGaps = await fetch(`${API_BASE}/analytics/overview`);
+                if (resGaps.ok) {
+                    const dataOverview = await resGaps.json();
+                    
+                    const tbody = document.querySelector('#gaps-table tbody');
+                    tbody.innerHTML = '';
+                    gapsDataForExport = [];
+
+                    if (dataOverview.recent_queries) {
+                        const gaps = dataOverview.recent_queries.filter(q => q.is_gap);
+                        gapsDataForExport = gaps;
+                        
+                        if (gaps.length > 0) {
+                            gaps.forEach(q => {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                                    <td>${q.timestamp.replace('T', ' ').substring(0, 19)}</td>
+                                    <td><strong>${escapeHtml(q.query)}</strong></td>
+                                    <td><span class="badge badge-red">${q.top_score}</span></td>
+                                    <td>${q.response_time_sec}s</td>
+                                `;
+                                tbody.appendChild(tr);
+                            });
+                        } else {
+                            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Bagus! Belum ada knowledge gap tercatat.</td></tr>';
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Gagal load gaps", err);
+            }
+        }
+
+        function renderTrendChart(data) {
+            const ctx = document.getElementById('trendChart').getContext('2d');
+            if (trendChartInstance) trendChartInstance.destroy();
+
+            const trendData = data.trend || [];
+            const labels = trendData.map(d => d.date);
+            const counts = trendData.map(d => d.total_queries);
+
+            trendChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Query',
+                        data: counts,
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#144C94',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function renderTopQueriesChart(data) {
+            const ctx = document.getElementById('topQueriesChart').getContext('2d');
+            if (topQueriesChartInstance) topQueriesChartInstance.destroy();
+
+            // Ambil top 5 saja dari property top_queries
+            const topData = data.top_queries || [];
+            const top5 = topData.slice(0, 5);
+            const labels = top5.map(d => {
+                let lbl = d.query.length > 25 ? d.query.substring(0, 25) + '...' : d.query;
+                return lbl;
+            });
+            const counts = top5.map(d => d.count);
+
+            topQueriesChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Frekuensi Query',
+                        data: counts,
+                        backgroundColor: [
+                            'rgba(20, 76, 148, 0.8)',
+                            'rgba(37, 99, 235, 0.8)',
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(245, 158, 11, 0.8)',
+                            'rgba(239, 68, 68, 0.8)'
+                        ],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+        }
+
+        function exportAnalyticsCSV() {
+            if (gapsDataForExport.length === 0) {
+                alert('Tidak ada data gap untuk diexport.');
+                return;
+            }
+            let csv = 'Waktu,Pertanyaan,Similarity Score,Waktu Respon (s)\n';
+            gapsDataForExport.forEach(row => {
+                const safeQuery = row.query.replace(/"/g, '""');
+                csv += `${row.timestamp},"${safeQuery}",${row.top_score},${row.response_time_sec}\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", `knowledge_gaps_${new Date().toISOString().slice(0,10)}.csv`);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Init
+        checkHealth();
+        loadOverviewData();
+    </script>
+
+    <!-- Modal Overlay Component -->
+    <div id="doc-modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,45,90,0.5); backdrop-filter:blur(6px); z-index:1000; align-items:center; justify-content:center;">
+        <div class="glass-panel" style="width: 85%; max-width: 950px; max-height: 88vh; display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid var(--primary); box-shadow: 0 10px 40px rgba(20, 76, 148, 0.25); margin: 0; padding: 1.8rem; border-radius: var(--radius-lg);">
+            <!-- Modal Header -->
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom: 1px solid var(--card-border); padding-bottom: 1rem; margin-bottom: 1rem;">
+                <div>
+                    <h2 id="modal-doc-title" style="font-size: 1.4rem; font-family: 'Outfit', sans-serif; color: var(--primary);">Detail Dokumen</h2>
+                    <div style="display:flex; gap:0.6rem; margin-top:0.5rem; flex-wrap: wrap;">
+                        <span class="badge badge-blue" id="modal-doc-id">DOC-ID</span>
+                        <span class="badge badge-cyan" id="modal-doc-cat">Category</span>
+                        <span class="badge badge-green" id="modal-doc-chunks-count">0 Chunks</span>
+                    </div>
+                </div>
+                <button onclick="closeDocModal()" style="background:transparent; border:none; color:var(--text-muted); font-size:1.6rem; cursor:pointer; padding: 4px 8px;"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <!-- Modal Filter & Body -->
+            <div style="margin-bottom: 1rem;">
+                <input type="text" id="modal-chunk-search" placeholder="🔍 Cari kata / kalimat di dalam chunk dokumen ini..." oninput="filterModalChunks()">
+            </div>
+            <div id="modal-chunks-container" style="flex:1; overflow-y:auto; padding-right: 0.5rem;">
+                <!-- Chunks loaded here -->
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual Environments
+venv/
+env/
+.venv/
+
+# Environment & Secrets (JANGAN PERNAH COMMIT!)
+.env
+*.env.local
+*.env.production
+
+# SQLite & Data Files
+data/analytics.db
+data/query_logs.jsonl.migrated
+data/raw_crawled/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

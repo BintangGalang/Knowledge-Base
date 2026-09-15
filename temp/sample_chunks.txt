@@ -1,0 +1,95 @@
+{
+  "chunk_id": "e06e45f9-443b-4b69-9b21-99ec10d235ff-chunk-0002",
+  "doc_id": "e06e45f9-443b-4b69-9b21-99ec10d235ff",
+  "chunk_index": 2,
+  "total_chunks": 12,
+  "text": "Jurnal Gender Dan Hak Asasi Manusia Volume 1 Nomor 2, September 2023 P-ISSN : 2986-0059 Prodi Ilmu Hukum Universitas Pendidikan Ganesha 141 IMPLEMENTASI UNDANG-UNDANG NOMOR 10 TAHUN 1998 TENTANG PERBANKAN TERHADAP PERLINDUNGAN HUKUM BAGI BUMDES SEBAGAI LEMBAGA KEUANGAN I Putu Bayumahadi Himawan, Ketut Sudiatmaka, Komang Febrinayanti Dantes Universitas Pendidikan Ganesha e-mail : {bayumahadihimawan98@gmail.com, sudiatmaka@undiksha.ac.id, febrinayanti.dantes@undiksha.ac.id} Abstrak Penelitian ini bertujuan untuk mengetahui dan menganalisis bentuk perlindungan hukum terhadap BUMDES sebagai lembaga keuangan di desa yang memiliki tujuan untuk membantu perekonomian masyarakat desa serta faktor penghambat dan pendukung dalam pelaksanaan perlindungan hukum terhadap BUMDES. Metode pengumpulan data yang digunakan adalah metode Penelitian Lapangan (Yuridis Empiris) dengan mengambil data-data yang terkait mengenai permasalahan peneliti. Hasil penelitian menunjukkan (1) Tidak semua indikator atau faktor dapat terpenuhi seperti yang telah dijelaskan. Mulai dari faktor penerapan hukum itu sendiri dan kurangnya kemampuan masyarakat dalam memenuhi kewajiban kredit. (2) Upaya yang dilakukan Badan Usaha Milik Desa (BUMDES) Mandala Giri Amertha Desa Tajun dalam menyelesaikan kredit macet yang tidak terselesaikan dengan cara non litigasi yang disebut dengan alternatif penyelesaian sengketa sehingga akan terjadi restrukturisasi kredit yang saling menguntungkan satu sama lain dengan kesepakatan bersama. Kata Kunci : BUMDES, Lembaga Keuangan, Implementasi UU No 10 Tahun 1998 Abstract This study aimed to determine and analyze the form of legal protection for BUMDES as a financial institution in the village that had the aim of helping the economy of rural communities and inhibiting and supporting factors in implementing legal protection for BUMDES. The data collection method used was the Field Research method (Yuridis Empiris) by taking related data about the researcher's problem. The results showed (1) Not all indicators or factors can be fulfilled as described. Starting from the application factor of the law itself and the lack of community ability to fulfill credit obligations. (2) The efforts made by the Village-Owned Enterprises (BUMDES) Mandala Giri Amertha Tajun Village in resolving unresolved bad debts in a non-litigation manner called alternative dispute resolution so that there will be credit restructuring to benefit each other by mutual agreement. Keywords : BUMDES, Financial Institutions, Implementation of Law No. 10 Year 1998 PENDAHULUAN Peningkatan roda perekonimian di lingkup pedesaan sudah sejak lama mulai dilakukan oleh pemerintah melalui berbagai program. Namun upaya itu belum mencapai titik kepuasaan yang bisa dikatakan berhasil sebagaimana diinginkan bersama. Faktor penghambatnya adalah intervensi dari pemerintah terlalu besar, akibatnya justru akan menghambat daya kreativitas dan inovasi masyarakat desa dalam pengelolaan dan menjalankan roda perekonomian di pedesaan. (Zulkarnain, 2013:1). Karena ketergantungan mereka pada pendanaan federal, ekonomi pedesaan menderita",
+  "section_title": "",
+  "title": "1027501088-1744130898.pdf",
+  "category": "mou_perjanjian_kerjasama",
+  "subcategory": "akademik",
+  "document_type": "peraturan",
+  "topic_tags": [
+    "hukum",
+    "undiksha",
+    "kerjasama"
+  ],
+  "target_audience": [
+    "dosen",
+    "mahasiswa"
+  ],
+  "language": "id",
+  "confidence_level": "official",
+  "related_units": [
+    "Fakultas Hukum"
+  ],
+  "is_time_sensitive": false,
+  "source_url": "https://static1.undiksha.ac.id/arsip/2025/kearsipan/file-tte/1027501088-1744130898.pdf",
+  "target_site": "jdih.undiksha.ac.id",
+  "last_updated": "2025-04-08T16:48:18Z",
+  "doc_summary": "Dokumen ini merupakan aturan atau kesepakatan resmi dari institusi terkait pelaksanaan program dan tata tertib akademik di lingkungan kampus."
+}
+
+{
+  "chunk_id": "1a3f3b52-c4e7-45ea-a7f6-075f1e5199b1-chunk-0001",
+  "doc_id": "1a3f3b52-c4e7-45ea-a7f6-075f1e5199b1",
+  "chunk_index": 1,
+  "total_chunks": 2,
+  "text": "--- [Halaman 1] ---\n\nMEMORANDUM OF AGREEMENT BETWEEN FACULTY OF ECONOMICS UNIVERSITAS PENDIDIKAN GANESHA AND FACULTY OF ECONOMICS, ADMINISTRATION, AND BUSINESS STEFAN CEL MARE UNIVERSITY OF SUCEAVA No. 1949/UN48.13/KS/2025 FACULTY OF ECONOMICS UNIVERSITAS PENDIDIKAN GANESHA, Republic of Indonesia, represented by Prof. Dr. Gede Adi Yuniarta., S.E., Ak., M.Si., FACULTY OF ECONOMICS ADMINISTRATION, AND BUSINESS STEFAN CEL MARE UNIVERSITY OF SUCEAVA, Romania, represented by Professor Nastase Carmen Eugenia hereby agree to develop further collaborative relations between the two faculties as described herein. Area of Collaboration The area of collaboration includes such programs offered at and proposed by either institution and mutually agreed between the parties as feasible and contributory to the development of a collaborative relationship with mutual equality and reciprocity of benerfits. Methods of Collaboration The two parties agree to encourage and promote the following academic and scholarly activities: 1. Curriculum benchmarking, Joint Curriculum Development (planning learning outcomes, content and methods); 2. Visiting Professor and Guest Lecturer; 3. Providing training (upskilling and reskilling) for lecturers and instructors; 4. Student exchange programs (Bachelor's, Master's and Doctorate); 5. Joint research and/or joint scientific publications; 6. Community service; 7. Other activities as deemed approprite by mutual consent This cooperation agreement involves study programs and work units from the Faculty of Economics Universitas Pendidikan Ganesha. This Collaboration will be carried out by Applied Bachelor/Vocational of Hospitality Management, Faculty of Economics Universitas Pendidikan Ganesha. .",
+  "section_title": "--- [Halaman 1] ---",
+  "title": "874727391",
+  "category": "peraturan_kebijakan",
+  "subcategory": "akademik",
+  "document_type": "peraturan",
+  "topic_tags": [
+    "hukum",
+    "undiksha",
+    "kerjasama"
+  ],
+  "target_audience": [
+    "dosen",
+    "mahasiswa"
+  ],
+  "language": "id",
+  "confidence_level": "official",
+  "related_units": [
+    "Fakultas Hukum"
+  ],
+  "is_time_sensitive": false,
+  "source_url": "https://static1.undiksha.ac.id/arsip/2025/kearsipan/file-non-tte/874727391-1761092980.pdf",
+  "target_site": "jdih.undiksha.ac.id",
+  "last_updated": "2025-10-22T00:29:42Z",
+  "doc_summary": "Dokumen ini merupakan aturan atau kesepakatan resmi dari institusi terkait pelaksanaan program dan tata tertib akademik di lingkungan kampus."
+}
+
+{
+  "chunk_id": "6a4a78dc-ac75-49f1-84a2-b7ff4327d71e-chunk-0002",
+  "doc_id": "6a4a78dc-ac75-49f1-84a2-b7ff4327d71e",
+  "chunk_index": 2,
+  "total_chunks": 2,
+  "text": "MEMORANDUM OF AGREEMENT BETWEEN FACULTY OF ECONOMICS UNIVERSITAS PENDIDIKAN GANESHA AND FACULTY OF ECONOMICS, ADMINISTRATION, AND BUSINESS STEFAN CEL MARE UNIVERSITY OF SUCEAVA No. 1946/UN48.13/KS/2025 FACULTY OF ECONOMICS UNIVERSITAS PENDIDIKAN GANESHA, Republic of Indonesia, represented by Prof. Dr. Gede Adi Yuniarta., S.E., Ak., M.Si., FACULTY OF ECONOMICS ADMINISTRATION, AND BUSINESS STEFAN CEL MARE UNIVERSITY OF SUCEAVA, Romania, represented by Professor Nastase Carmen Eugenia hereby agree to develop further collaborative relations between the two faculties as described herein. Area of Collaboration The area of collaboration includes such programs offered at and proposed by either institution and mutually agreed between the parties as feasible and contributory to the development of a collaborative relationship with mutual equality and reciprocity of benerfits. Methods of Collaboration The two parties agree to encourage and promote the following academic and scholarly activities: 1. Curriculum benchmarking, Joint Curriculum Development (planning learning outcomes, content and methods); 2. Visiting Professor and Guest Lecturer; 3. Providing training (upskilling and reskilling) for lecturers and instructors; 4. Student exchange programs (Bachelor's, Master's and Doctorate); 5. Joint research and/or joint scientific publications; 6. Community service; 7. Other activities as deemed approprite by mutual consent This cooperation agreement involves study programs and work units from the Faculty of Economics Universitas Pendidikan Ganesha. This Collaboration will be carried out by Accounting Study Program, Faculty of Economics Universitas Pendidikan Ganesha.From the Faculty of Economics, Administration and Business at Stefan cel Mare University of Suceava, similar bachelor's, master's and doctoral programs in the fields of: Accounting, Management, Business Administration, General Economics, Economics of Trade, Tourism and Services, International Affairs will be included. Faculty of Economics Universitas Pendidikan Ganesha and Faculty of Economics, Administration, and Business, Stefan cel Mare University of Suceava Romania agree to continues discussions on futher",
+  "section_title": "",
+  "title": "1485837878-1761092975.pdf",
+  "category": "pedoman_sop",
+  "subcategory": "akademik",
+  "document_type": "peraturan",
+  "topic_tags": [
+    "hukum",
+    "undiksha",
+    "kerjasama"
+  ],
+  "target_audience": [
+    "dosen",
+    "mahasiswa"
+  ],
+  "language": "id",
+  "confidence_level": "official",
+  "related_units": [
+    "Fakultas Hukum"
+  ],
+  "is_time_sensitive": false,
+  "source_url": "https://static1.undiksha.ac.id/arsip/2025/kearsipan/file-non-tte/1485837878-1761092975.pdf",
+  "target_site": "jdih.undiksha.ac.id",
+  "last_updated": "2025-10-22T00:29:38Z",
+  "doc_summary": "Dokumen ini merupakan aturan atau kesepakatan resmi dari institusi terkait pelaksanaan program dan tata tertib akademik di lingkungan kampus."
+}
