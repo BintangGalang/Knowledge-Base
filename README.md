@@ -52,7 +52,7 @@ Pastikan untuk memasukkan OpenAI API Key Anda:
 ```env
 OPENAI_API_KEY=sk-proj-xxxxxxxxxxxxxxxxxxx
 ADMIN_USERNAME=admin
-ADMIN_PASSWORD=shavira-undiksha-2026
+ADMIN_PASSWORD=admin123
 ```
 
 ### 2. Jalankan FastAPI Backend & Web Admin Dashboard
